@@ -13,32 +13,6 @@ The primary goal of this project was to construct a resilient, redundant, and sc
 4. Subnetting Precision: Structuring clean /64 subnets (2001:DB8::/32 space) to enforce standard IPv6 aggregation and NDP capabilities.
 
 ---
-## 🔢 Router Addressing Table
-
-| Device | Interface | Connected To | IPv6 Address / Prefix | OSPFv3 Area |
-| :--- | :--- | :--- | :--- | :--- |
-| **R1** | GigabitEthernet1/0 | MUL1 | `2001:DB8:1:10::1/64` | Area 1 |
-| | GigabitEthernet4/0 | R5 | `2001:DB8:0:15::1/64` | Area 0 |
-| | GigabitEthernet5/0 | R4 | `2001:DB8:0:14::1/64` | Area 0 |
-| **R2** | GigabitEthernet1/0 | MUL2 | `2001:DB8:2:20::1/64` | Area 2 |
-| | GigabitEthernet2/0 | MUL3 | `2001:DB8:2:30::1/64` | Area 2 |
-| | GigabitEthernet4/0 | R6 | `2001:DB8:0:26::2/64` | Area 0 |
-| | GigabitEthernet5/0 | R4 | `2001:DB8:0:24::2/64` | Area 0 |
-| **R3** | GigabitEthernet4/0 | R5 | `2001:DB8:0:35::1/64` | Area 0 |
-| | GigabitEthernet5/0 | R6 | `2001:DB8:0:36::1/64` | Area 0 |
-| **R4** | GigabitEthernet1/0 | R1 | `2001:DB8:0:14::2/64` | Area 0 |
-| | GigabitEthernet2/0 | R2 | `2001:DB8:0:24::1/64` | Area 0 |
-| | GigabitEthernet4/0 | R5 | `2001:DB8:0:45::2/64` | Area 0 |
-| | GigabitEthernet5/0 | R6 | `2001:DB8:0:46::1/64` | Area 0 |
-| **R5** | GigabitEthernet1/0 | R1 | `2001:DB8:0:15::2/64` | Area 0 |
-| | GigabitEthernet3/0 | R3 | `2001:DB8:0:35::2/64` | Area 0 |
-| | GigabitEthernet4/0 | R4 | `2001:DB8:0:45::1/64` | Area 0 |
-| | GigabitEthernet6/0 | R6 | `2001:DB8:0:56::1/64` | Area 0 |
-| **R6** | GigabitEthernet2/0 | R2 | `2001:DB8:0:26::1/64` | Area 0 |
-| | GigabitEthernet3/0 | R3 | `2001:DB8:0:36::2/64` | Area 0 |
-| | GigabitEthernet5/0 | R4 | `2001:DB8:0:46::2/64` | Area 0 |
-| | GigabitEthernet6/0 | R5 | `2001:DB8:0:56::2/64` | Area 0 |
-
 
 ##  Topology Architecture & Breakdown
 
@@ -73,6 +47,34 @@ Below is the complete network topology diagram:
 * SLAAC: Stateless auto-configuration using ICMPv6 Router Advertisements.
 * NDP (ICMPv6): Replaces IPv4 ARP for neighbor resolution and router discovery.
 * Inter-VLAN Routing: Communication between isolated VLAN segments over trunk links.
+
+---
+
+## 🔢 Router Addressing Table
+
+| Device | Interface | Connected To | IPv6 Address / Prefix | OSPFv3 Area |
+| :--- | :--- | :--- | :--- | :--- |
+| **R1** | GigabitEthernet1/0 | MUL1 | `2001:DB8:1:10::1/64` | Area 1 |
+| | GigabitEthernet4/0 | R5 | `2001:DB8:0:15::1/64` | Area 0 |
+| | GigabitEthernet5/0 | R4 | `2001:DB8:0:14::1/64` | Area 0 |
+| **R2** | GigabitEthernet1/0 | MUL2 | `2001:DB8:2:20::1/64` | Area 2 |
+| | GigabitEthernet2/0 | MUL3 | `2001:DB8:2:30::1/64` | Area 2 |
+| | GigabitEthernet4/0 | R6 | `2001:DB8:0:26::2/64` | Area 0 |
+| | GigabitEthernet5/0 | R4 | `2001:DB8:0:24::2/64` | Area 0 |
+| **R3** | GigabitEthernet4/0 | R5 | `2001:DB8:0:35::1/64` | Area 0 |
+| | GigabitEthernet5/0 | R6 | `2001:DB8:0:36::1/64` | Area 0 |
+| **R4** | GigabitEthernet1/0 | R1 | `2001:DB8:0:14::2/64` | Area 0 |
+| | GigabitEthernet2/0 | R2 | `2001:DB8:0:24::1/64` | Area 0 |
+| | GigabitEthernet4/0 | R5 | `2001:DB8:0:45::2/64` | Area 0 |
+| | GigabitEthernet5/0 | R6 | `2001:DB8:0:46::1/64` | Area 0 |
+| **R5** | GigabitEthernet1/0 | R1 | `2001:DB8:0:15::2/64` | Area 0 |
+| | GigabitEthernet3/0 | R3 | `2001:DB8:0:35::2/64` | Area 0 |
+| | GigabitEthernet4/0 | R4 | `2001:DB8:0:45::1/64` | Area 0 |
+| | GigabitEthernet6/0 | R6 | `2001:DB8:0:56::1/64` | Area 0 |
+| **R6** | GigabitEthernet2/0 | R2 | `2001:DB8:0:26::1/64` | Area 0 |
+| | GigabitEthernet3/0 | R3 | `2001:DB8:0:36::2/64` | Area 0 |
+| | GigabitEthernet5/0 | R4 | `2001:DB8:0:46::2/64` | Area 0 |
+| | GigabitEthernet6/0 | R5 | `2001:DB8:0:56::2/64` | Area 0 |
 
 ---
 

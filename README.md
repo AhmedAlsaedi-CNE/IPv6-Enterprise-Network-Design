@@ -14,7 +14,7 @@ The primary goal of this project was to construct a resilient, redundant, and sc
 
 ---
 
-## 📐 Topology Architecture & Breakdown
+##  Topology Architecture & Breakdown
 
 Below is the complete network topology diagram:
 
@@ -37,7 +37,7 @@ Below is the complete network topology diagram:
 
 ---
 
-## 🛠️ Protocols Implemented
+##  Protocols Implemented
 
 * IPv6: Base network layer protocols across all devices and hosts.
 * OSPFv3: Core interior gateway routing protocol for IPv6 reachability.
@@ -50,7 +50,7 @@ Below is the complete network topology diagram:
 
 ---
 
-## 🧪 Verification & Proof of Concept
+##  Verification & Proof of Concept
 
 To validate the deployment, several verification steps and operational tests were performed.
 
@@ -58,9 +58,10 @@ To validate the deployment, several verification steps and operational tests wer
 Verifying that all routers in the core mesh have formed full adjacencies and built complete Link-State Databases (LSDB).
 
 Command:
-show ipv6 ospf neighbor
+R4#show ipv6 ospf neighbor
 
-![OSPFv3 Neighbors](images/ospf_neighbors.png)
+<img width="1371" height="352" alt="image" src="https://github.com/user-attachments/assets/3b70bfa9-b76a-4b3b-b112-443b47c2fad8" />
+
 
 ---
 
@@ -71,7 +72,8 @@ Commands:
 PC1# show ipv6 interface brief
 PC1# show ipv6 dhcp interface
 
-![DHCPv6 Test](images/dhcpv6_test.png)
+<img width="1102" height="835" alt="image" src="https://github.com/user-attachments/assets/4223dd26-2a08-418d-b011-b3b2b3fbb592" />
+
 
 ---
 
@@ -79,9 +81,10 @@ PC1# show ipv6 dhcp interface
 Verifying that VPCS hosts in VLAN 20 (PC2-PC5) auto-assign their global unicast addresses based on the prefix advertised by the gateway.
 
 Command:
-PC2> show ipv6
+PC3> show ipv6
 
-![SLAAC Test](images/slaac_test.png)
+<img width="956" height="561" alt="image" src="https://github.com/user-attachments/assets/65c6ddc3-c77c-48f0-b493-9ee368b21fba" />
+
 
 ---
 
@@ -89,14 +92,31 @@ PC2> show ipv6
 Testing full end-to-end connectivity across the core network from a client in VLAN 20 to Server 2 (2001:DB8:3:100::11).
 
 Commands:
-PC2> ping 2001:DB8:3:100::11
-PC2> trace 2001:DB8:3:100::11
+PC5> ping 2001:DB8:3:100::11
+PC5> trace 2001:DB8:3:100::11
 
-![Ping Trace Test](images/ping_traceroute.png)
+<img width="1002" height="617" alt="image" src="https://github.com/user-attachments/assets/7a582fe4-b365-4ba9-9112-bed18f3e9de2" />
+
+### 5. First-Hop Redundancy Verification (HSRPv2 for IPv6)
+To validate High Availability (HA) and default gateway redundancy for endpoints in VLAN 20, HSRPv2 state verification and a simulated failover test were conducted.
+
+#### A. Active/Standby State Verification
+Verifying that MUL2 is properly elected as the **Active** gateway and MUL3 as the **Standby** gateway, sharing the Virtual Link-Local IPv6 Address (`FE80::20`).
+
+Commands:
+MUL2# show standby brief
+
+<img width="1220" height="207" alt="image" src="https://github.com/user-attachments/assets/47263496-1699-4764-b911-325b19919345" />
+
+
+MUL3# show standby brief
+
+<img width="1212" height="213" alt="image" src="https://github.com/user-attachments/assets/2b059099-88d4-4993-b522-10c33e04c34a" />
+
 
 ---
 
-## 🔍 Troubleshooting Scenario Solved
+##  Troubleshooting Scenario Solved
 
 During deployment, a key issue was identified and resolved regarding host IPv6 address allocation:
 
@@ -104,20 +124,3 @@ During deployment, a key issue was identified and resolved regarding host IPv6 a
 * Symptom: Host PC1 in VLAN 10 was taking a SLAAC address instead of obtaining an IPv6 address from the DHCPv6 server, and it was unclear why.
 * Root Cause: Upon checking the host version, it was discovered that VPCS nodes in GNS3 only support SLAAC auto-configuration natively and lack commands/support to pull stateful DHCPv6 addresses.
 * Fix: Added a Cisco Router to VLAN 10 to act as PC1, configured it as an IPv6 host, and enabled DHCPv6 client functionality on its interface. This successfully allowed PC1 to obtain an IPv6 address via the DHCPv6 Server and Relay Agent.
-
----
-
-## 📂 Repository Structure
-
-├── configs/
-│   ├── R1_config.txt
-│   ├── R2_config.txt
-│   ├── MUL1_config.txt
-│   └── ... (all device configs)
-├── images/
-│   ├── topology.png
-│   ├── ospf_neighbors.png
-│   ├── dhcpv6_test.png
-│   ├── slaac_test.png
-│   └── ping_traceroute.png
-└── README.md

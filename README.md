@@ -2,9 +2,6 @@
 
 Welcome to the documentation for my enterprise IPv6 network design project! This repository contains the complete GNS3 topology, configuration files, and verification tests for an end-to-end IPv6 infrastructure featuring high availability, dynamic routing, and automated host addressing.
 
-<img width="1221" height="582" alt="image" src="https://github.com/user-attachments/assets/1f3cb7a2-728a-4167-b935-59356f0d8e28" />
-
-
 ## 📌 Project Overview & Rationale
 
 Modern enterprise environments are rapidly transitioning toward IPv6-only or dual-stack architectures to overcome IPv4 address exhaustion and streamline end-to-end connectivity. 
@@ -21,7 +18,8 @@ The primary goal of this project was to construct a resilient, redundant, and sc
 
 Below is the complete network topology diagram:
 
-![Network Topology](images/topology.png)
+<img width="1221" height="582" alt="image" src="https://github.com/user-attachments/assets/1f0e1f36-64e3-4b2d-acd1-107ed2af08c2" />
+
 
 ### 1. Host Addressing Layer
 * VLAN 10 (DHCPv6 Domain): 2001:DB8:1:100::/64  

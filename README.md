@@ -62,7 +62,6 @@ R4#show ipv6 ospf neighbor
 
 <img width="1371" height="352" alt="image" src="https://github.com/user-attachments/assets/3b70bfa9-b76a-4b3b-b112-443b47c2fad8" />
 
-
 ---
 
 ### 2. DHCPv6 Stateful Allocation & Relay Test
